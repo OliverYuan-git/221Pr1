@@ -1,0 +1,188 @@
+<!-- Author: Oliver Yuan -->
+<!-- CSDS221 Project1 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Booking Form</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+  <style>
+    h1 {
+      color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Bootstrap Booking Form:</h1>
+    <div class="well">Fill out the form and click the submit button when complete...</div>
+    <form id="booking-form">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="panel panel-primary">
+            <!-- User Panel -->
+            <div class="panel-heading">User:</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-xs-3">
+                    Username:
+                  </label>
+                  <div class="col-xs-9" id="div-username">
+                    <input type="text" class="form-control" id="username" placeholder="Type username..." />
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-xs-3">
+                    First Name:
+                  </label>
+                  <div class="col-xs-9" id="div-firstname">
+                    <input type="text" class="form-control" id="firstname" placeholder="Type first name..." />
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-xs-3">
+                    Last Name:
+                  </label>
+                  <div class="col-xs-9" id="div-lastname">
+                    <input type="text" class="form-control" id="lastname" placeholder="Type last name..." />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Panel -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">Contact:</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <div class="input-group" id="div-phone">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                  </span>
+                  <input type="text" class="form-control" id="phone" placeholder="Type phone#...">
+                </div>
+                <div class="input-group" id="div-fax">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-inbox"></span>
+                  </span>
+                  <input type="text" class="form-control" id="fax" placeholder="Type fax#...">
+                </div>
+                <div class="input-group" id="div-email">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                  </span>
+                  <input type="email" class="form-control" id="email" placeholder="Type e-mail...">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schedule Panel -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">Schedule:</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label>Adults:</label>
+                <select class="form-control" id="select-adult" onchange="calculateDaysAndCosts()">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <label>Check-In:</label>
+                    <div class="input-group date" id="div-checkin" data-provide="datepicker">
+                      <input type="text" id="checkin" class="form-control" placeholder="mm/dd/yyyy" onchange="calculateDaysAndCosts()">
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <label>Check-Out:</label>
+                    <div class="input-group date" id="div-checkout" data-provide="datepicker">
+                      <input type="text" id="checkout" class="form-control" placeholder="mm/dd/yyyy" onchange="calculateDaysAndCosts()">
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <label>Days:</label>
+                    <input type="text" class="form-control" id="days" placeholder="Displays days..." readonly>
+                  </div>
+                  <div class="col-xs-6">
+                    <label>Costs:</label>
+                    <input type="text" class="form-control" id="costs" placeholder="Displays costs..." readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =Other Panel -->
+        <div class="col-xs-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Other:</div>
+            <div class="panel-body">
+              <label>Message:</label>
+              <textarea class="form-control" rows="24" placeholder="Type message here..."></textarea>
+              <label>Range:</label>
+              <input type="range" class="form-range" min="0" max="10" id="range">
+              <label>Priority:</label><br>
+              <label class="radio-inline">
+                <input class="form-check-input" type="radio" name="priority" id="Low" value="Low" checked>
+                <text class="form-check-label" for="Low">Low</text>
+              </label>
+              <label class="radio-inline">
+                <input class="form-check-input" type="radio" name="priority" id="Med" value="Med">
+                <text class="form-check-label" for="Med">Med</text>
+              </label>
+              <label class="radio-inline">
+                <input class="form-check-input" type="radio" name="priority" id="High" value="High">
+                <text class="form-check-label" for="High">High</text>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset and Submit Buttons -->
+      <div class="row">
+        <div class="col-xs-offset-8 col-xs-2">
+          <button type="reset" class="btn btn-primary btn-block" id="reset">
+            <span class="glyphicon glyphicon-erase">&nbsp;</span>Reset
+          </button>
+        </div>
+        <div class="col-xs-2">
+          <button type="submit" class="btn btn-success btn-block" id="submit">
+            <span class="glyphicon glyphicon-send">&nbsp;</span>Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Scripts for Bootstrap, jQuery, Datepicker, Toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
