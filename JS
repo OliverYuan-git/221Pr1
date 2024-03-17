@@ -1,0 +1,73 @@
+$(document).ready(function () {
+  function calculateDaysAndCosts() {
+    var checkinDate = $("#checkin").val();
+    var checkoutDate = $("#checkout").val();
+    var numberOfAdults = $("#select-adult").val();
+    if (checkinDate && checkoutDate && numberOfAdults) {
+      var days = moment(checkoutDate).diff(moment(checkinDate), "days");
+      var cost = days * numberOfAdults * 150;
+      $("#days").val(days);
+      $("#costs").val(cost > 0 ? cost : ""); // Only set a positive cost
+    }
+  }
+
+  function validateFormAndCost() {
+    var isValid = true;
+    var missingFields = [];
+    var fieldsToValidate = [
+      "#username",
+      "#firstname",
+      "#lastname",
+      "#phone",
+      "#fax",
+      "#email"
+    ];
+    var cost = $("#costs").val();
+
+    fieldsToValidate.forEach(function (field) {
+      var $input = $(field);
+      if ($input.val().trim() === "") {
+        $input.closest(".form-group").addClass("has-error");
+        isValid = false;
+        missingFields.push(field.substr(1)); // For readability in the message
+      } else {
+        $input.closest(".form-group").removeClass("has-error");
+      }
+    });
+
+    if (!cost) {
+      toastr.error(
+        "No cost was calculated. Please ensure all required fields are filled and calculate the cost.",
+        "Validation Error"
+      );
+      isValid = false;
+    } else if (parseFloat(cost) <= 0) {
+      toastr.error(
+        "The cost cannot be negative or zero. Please check your entries and recalculate.",
+        "Validation Error"
+      );
+      isValid = false;
+    }
+
+    if (missingFields.length > 0) {
+      toastr.error(
+        "Please fill in the missing fields: " +
+          missingFields.join(", ").replace(/_/g, " "),
+        "Validation Error"
+      );
+    }
+
+    return isValid;
+  }
+
+  // Event listener for the submit button
+  $("#booking-form").on("submit", function (e) {
+    e.preventDefault();
+    if (validateFormAndCost()) {
+      toastr.success("Form is valid! Processing submission...", "Success");
+      console.log("Form submitted!");
+    }
+  });
+
+  $("#select-adult, #checkin, #checkout").change(calculateDaysAndCosts);
+});
