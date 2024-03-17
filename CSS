@@ -1,0 +1,31 @@
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-group-addon {
+  color: #555;
+  background: #eee;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.input-group .form-control {
+  border-radius: 4px;
+}
+
+.btn-block {
+  margin-top: 20px;
+}
+
+/* Toastr notifications styling from */
+#toast-container > .toast-success {
+  background-color: #51a351;
+}
+
+#toast-container > .toast-error {
+  background-color: #bd362f;
+}
+
+#toast-container > .toast-info {
+  background-color: #2f96b4;
+}
